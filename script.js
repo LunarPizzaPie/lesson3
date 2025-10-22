@@ -5,7 +5,7 @@
 
 // 1. Get references to the HTML elements we need to interact with.
 const button = document.getElementById('actionButton');
-const mylist = document.getElementById('myList');
+const myList = document.getElementById('myList');
 
 // 2. "Listen" for the click event on the button and run the function.
 // This connects the user action (click) to the code logic (handleClick function).
@@ -23,7 +23,14 @@ async function handleClick() {
     let resp = await fetch(`${backendUrl}/list`);           
     let data = await resp.json();
 
-    // do something with the data    
-    greetingText.textContent = data.message;    
-    
+    // do something with the data
+    // loop through all backend records    
+    for( rec of data ) {
+
+        let listItem = document.createElement('li');
+        listItem.textContent = rec.name;
+
+        myList.appendChild(listItem);
+
+    }
 }
